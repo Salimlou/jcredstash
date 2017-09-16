@@ -1,6 +1,7 @@
 package com.jessecoyle;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.*;
@@ -30,9 +31,21 @@ public class JCredStash {
         this.cryptoImpl = new CredStashBouncyCastleCrypto();
     }
 
+    public JCredStash(Regions region) {
+        this.amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withRegion(region).build();
+        this.awskmsClient = AWSKMSClientBuilder.standard().withRegion(region).build();
+        this.cryptoImpl = new CredStashBouncyCastleCrypto();
+    }
+
     public JCredStash(AWSCredentialsProvider awsCredentialsProvider) {
         this.amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withCredentials(awsCredentialsProvider).build();
         this.awskmsClient = AWSKMSClientBuilder.standard().withCredentials(awsCredentialsProvider).build();
+        this.cryptoImpl = new CredStashBouncyCastleCrypto();
+    }
+
+    public JCredStash(AWSCredentialsProvider awsCredentialsProvider, Regions region) {
+        this.amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withCredentials(awsCredentialsProvider).withRegion(region).build();
+        this.awskmsClient = AWSKMSClientBuilder.standard().withCredentials(awsCredentialsProvider).withRegion(region).build();
         this.cryptoImpl = new CredStashBouncyCastleCrypto();
     }
 
