@@ -2,10 +2,10 @@ package com.jessecoyle;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.amazonaws.services.kms.AWSKMS;
-import com.amazonaws.services.kms.AWSKMSClient;
+import com.amazonaws.services.kms.AWSKMSClientBuilder;
 import com.amazonaws.services.kms.model.DecryptRequest;
 import com.amazonaws.services.kms.model.DecryptResult;
 import com.amazonaws.services.kms.model.GenerateDataKeyRequest;
@@ -25,14 +25,14 @@ public class JCredStash {
     protected CredStashCrypto cryptoImpl;
 
     public JCredStash() {
-        this.amazonDynamoDBClient = new AmazonDynamoDBClient();
-        this.awskmsClient = new AWSKMSClient();
+        this.amazonDynamoDBClient = AmazonDynamoDBClientBuilder.defaultClient();
+        this.awskmsClient = AWSKMSClientBuilder.defaultClient();
         this.cryptoImpl = new CredStashBouncyCastleCrypto();
     }
 
     public JCredStash(AWSCredentialsProvider awsCredentialsProvider) {
-        this.amazonDynamoDBClient = new AmazonDynamoDBClient(awsCredentialsProvider);
-        this.awskmsClient = new AWSKMSClient(awsCredentialsProvider);
+        this.amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withCredentials(awsCredentialsProvider).build();
+        this.awskmsClient = AWSKMSClientBuilder.standard().withCredentials(awsCredentialsProvider).build();
         this.cryptoImpl = new CredStashBouncyCastleCrypto();
     }
 

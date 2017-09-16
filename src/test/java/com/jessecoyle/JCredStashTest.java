@@ -1,10 +1,14 @@
 package com.jessecoyle;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.*;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
+import com.amazonaws.services.dynamodbv2.model.GetItemResult;
+import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.model.PutItemResult;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.amazonaws.services.kms.AWSKMS;
-import com.amazonaws.services.kms.AWSKMSClient;
 import com.amazonaws.services.kms.model.DecryptRequest;
 import com.amazonaws.services.kms.model.DecryptResult;
 import com.amazonaws.services.kms.model.GenerateDataKeyRequest;
@@ -12,13 +16,14 @@ import com.amazonaws.services.kms.model.GenerateDataKeyResult;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.VerificationModeFactory;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +99,7 @@ public class JCredStashTest {
         Assert.assertEquals(putItemRequest[0].getItem().get("version").getS(), padVersion(2));
     }
 
-    protected Map<String, AttributeValue> mockItem(String secretName, String newVersion, byte[] encryptedKeyBytes, byte[] contents, byte[] hmac) {
+    private Map<String, AttributeValue> mockItem(String secretName, String newVersion, byte[] encryptedKeyBytes, byte[] contents, byte[] hmac) {
 
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("name", new AttributeValue(secretName));
@@ -107,11 +112,11 @@ public class JCredStashTest {
 
     @Test
     public void testGetSecret() {
-        final QueryRequest[] queryRequest = new QueryRequest[1];
         Mockito.when(dynamoDBClient.query(Mockito.any(QueryRequest.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
-            queryRequest[0] = (QueryRequest) args[0];
-            return new QueryResult().withCount(1).withItems(Arrays.asList(
+            final QueryRequest queryRequest = (QueryRequest) args[0];
+            Assert.assertEquals("table", queryRequest.getTableName());
+            return new QueryResult().withCount(1).withItems(Collections.singletonList(
                     mockItem("mysecret", padVersion(1), new byte[]{}, new byte[]{}, new byte[]{})
             ));
         });
@@ -119,7 +124,7 @@ public class JCredStashTest {
 
         JCredStash credStash = Mockito.spy(new JCredStash(dynamoDBClient, awskmsClient));
 
-        Mockito.doReturn("foo").when(credStash).getSecret(Mockito.any(JCredStash.StoredSecret.class), Mockito.any(Map.class));
+        Mockito.doReturn("foo").when(credStash).getSecret(Mockito.any(JCredStash.StoredSecret.class), Mockito.anyMap());
 
         String secret = credStash.getSecret("table", "mysecret", new HashMap<>());
 
@@ -137,7 +142,7 @@ public class JCredStashTest {
         });
 
         JCredStash credStash = Mockito.spy(new JCredStash(dynamoDBClient, awskmsClient));
-        Mockito.doReturn("foo").when(credStash).getSecret(Mockito.any(JCredStash.StoredSecret.class), Mockito.any(Map.class));
+        Mockito.doReturn("foo").when(credStash).getSecret(Mockito.any(JCredStash.StoredSecret.class), Mockito.anyMap());
 
         credStash.getSecret("table", "mysecret", new HashMap<>(), padVersion(1));
 
