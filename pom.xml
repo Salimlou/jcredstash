@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.jessecoyle</groupId>
+    <groupId>me.lamouri</groupId>
     <artifactId>jcredstash</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.5.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
     <name>JCredStash</name>
     <description>A pure Java implementation of the CredStash utility originally in Python</description>
-    <url>https://github.com/jessecoyle/jcredstash</url>
+    <url>https://github.com/klamouri/jcredstash</url>
 
     <licenses>
         <license>
@@ -21,9 +21,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/jessecoyle/jcredstash.git</connection>
-        <url>scm:git:https://github.com/jessecoyle/jcredstash.git</url>
-        <developerConnection>scm:git:https://github.com/jessecoyle/jcredstash.git</developerConnection>
+        <connection>scm:git:https://github.com/klamouri/jcredstash.git</connection>
+        <url>scm:git:https://github.com/klamouri/jcredstash.git</url>
+        <developerConnection>scm:git:https://github.com/klamouri/jcredstash.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
