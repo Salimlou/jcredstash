@@ -255,6 +255,17 @@ public class JCredStash {
      *
      * @param tableName the dynamo table name (likely "credential-store")
      * @param secretName the name of the secret to get
+     * @return unencrypted secret
+     */
+    public String getSecret(String tableName, String secretName)  {
+        return getSecret(tableName, secretName, Collections.emptyMap(), null);
+    }
+
+    /**
+     * Gets a secret from credstash.
+     *
+     * @param tableName the dynamo table name (likely "credential-store")
+     * @param secretName the name of the secret to get
      * @param context encryption context key/value pairs associated with the credential in the form of "key=value"
      * @return unencrypted secret
      */
