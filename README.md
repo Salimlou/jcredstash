@@ -8,8 +8,8 @@ This is  a fork of [Jesse Coyle version](https://github.com/jessecoyle/jcredstas
 I forked this repository because the author seems to not maintain it anymore.
 
 My plan is to:
-* Upgrade all dependencies.
-* Clean up some parts of the code.
-* Release the artifact on Maven Central
+* [ ] Upgrade all dependencies.
+* [ ] Clean up some parts of the code.
+* [x] Release the artifact on Maven Central
 
 I'll happily take pull requests, comments and any help I can get :)
