@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -15,7 +15,6 @@ import com.amazonaws.services.kms.model.GenerateDataKeyRequest;
 import com.amazonaws.services.kms.model.GenerateDataKeyResult;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

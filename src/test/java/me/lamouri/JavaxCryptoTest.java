@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 import org.hamcrest.Matchers;
 import org.junit.Assume;

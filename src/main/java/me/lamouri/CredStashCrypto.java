@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 /**
  * Created by jcoyle on 2/1/16.

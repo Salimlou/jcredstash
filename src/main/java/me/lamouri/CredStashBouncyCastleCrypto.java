@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 import org.bouncycastle.crypto.BlockCipher;
 import org.bouncycastle.crypto.StreamBlockCipher;

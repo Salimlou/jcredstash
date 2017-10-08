@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;

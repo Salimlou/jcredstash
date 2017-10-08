@@ -1,4 +1,4 @@
-package com.jessecoyle;
+package me.lamouri;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.regions.Regions;
