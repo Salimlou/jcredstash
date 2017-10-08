@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/klamouri/jcredstash.svg?branch=master)](https://travis-ci.org/klamouri/jcredstash)
+
 # jcredstash
 A pure Java implementation of the CredStash utility originally in Python
 
