@@ -89,7 +89,7 @@ public class JCredStash {
             byte[] attr;
 
             try {
-                if (b.remaining() > 0) {
+                if (b != null && b.remaining() > 0) {
                     // support for current versions of credstash
                     attr = value.getB().array();
                 } else {
